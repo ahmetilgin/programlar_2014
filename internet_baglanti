@@ -1,0 +1,39 @@
+package internet_01;
+
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+
+public class internet_Varmi {
+	
+	public static void main(String[] args) {
+		String msg="";
+		if (internetKontrolEt()==true)msg="İnternet bağlantınız vardır. Tebrik ederim.";
+		if (internetKontrolEt()==false)msg="İnternet bağlantınız yoktur. Bağlantıları kontrol ediniz.";
+		
+		JOptionPane.showMessageDialog(null, msg);	
+		
+	}
+		
+	static boolean internetKontrolEt() {
+
+		Socket socket = new Socket();
+
+		try {
+			InetSocketAddress isa = new InetSocketAddress("www.google.com", 80);
+			socket.connect(isa, 3000);
+			return true;
+
+		} catch (Exception e) {
+			return false;
+		} finally {
+			try {
+				socket.close();
+			} catch (Exception e) {
+				System.err.println("internetKontrolEt metodunda HATA " + e);
+
+			}
+		}
+	}
+
+}
